@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JIONI CONNECT · find your vibe</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- reset & base ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f9fafc;
+      color: #1e293b;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ---------- JIONI design tokens ---------- */
+    :root {
+      --primary: #ec4899;
+      --primary-light: #fce7f3;
+      --primary-dark: #db2777;
+      --accent: #8b5cf6;
+      --accent-light: #ede9fe;
+      --surface: #ffffff;
+      --surface-alt: #fdf2f8;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-light: #f1e4ea;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 8px 24px rgba(236, 72, 153, 0.08), 0 4px 8px rgba(0, 0, 0, 0.02);
+      --radius-sm: 16px;
+      --radius-md: 24px;
+      --radius-lg: 36px;
+      --transition: all 0.2s ease;
+    }
+
+    /* ---------- typography & layout ---------- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #0f172a;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 1.06rem;
+      max-width: 70ch;
+    }
+
+    /* ---------- navbar ---------- */
+    .navbar {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.03em;
+      color: var(--primary-dark);
+      text-decoration: none;
+    }
+
+    .logo i {
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--text-main);
+      transition: var(--transition);
+      font-size: 1rem;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0.7rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 6px 14px rgba(236, 72, 153, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(236, 72, 153, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border-light);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .btn-large {
+      padding: 0.9rem 2.2rem;
+      font-size: 1rem;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      padding: 4rem 0 5rem;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1 1 400px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.35rem 1rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-content h1 {
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-content p {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      max-width: 45ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .hero-visual {
+      flex: 1 1 300px;
+      background: linear-gradient(145deg, #fdf2f8 0%, #ede9fe 100%);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      border: 1px solid rgba(236, 72, 153, 0.15);
+    }
+
+    .mock-card {
+      background: white;
+      padding: 1.2rem 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .mock-card i {
+      font-size: 1.6rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 0.7rem;
+      border-radius: 14px;
+      width: 3rem;
+      text-align: center;
+    }
+
+    .mock-card .mock-text {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .mock-card small {
+      display: block;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .mock-card:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+
+    /* ---------- sections ---------- */
+    section {
+      padding: 3.5rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.8rem;
+    }
+
+    .section-header p {
+      margin: 0 auto;
+      max-width: 50ch;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      padding: 2rem 1.8rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+
+    .feature-icon {
+      background: var(--primary-light);
+      color: var(--primary);
+      width: 3.5rem;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+    }
+
+    .feature-card p {
+      font-size: 0.98rem;
+    }
+
+    /* ---------- match demo ---------- */
+    .match-demo {
+      background: var(--surface-alt);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      margin: 2rem 0;
+      box-shadow: inset 0 1px 4px rgba(236, 72, 153, 0.06);
+    }
+
+    .match-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .profile-card {
+      flex: 1 1 280px;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 1.8rem 1.5rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .profile-card .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      border: 3px solid white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .profile-card h3 {
+      margin-bottom: 0.25rem;
+      font-size: 1.3rem;
+    }
+
+    .profile-card .badge {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin: 0.5rem 0 0.8rem;
+      display: inline-block;
+    }
+
+    .profile-card .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin: 0.8rem 0;
+    }
+
+    .interest-tag {
+      background: #f1f5f9;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+      color: var(--text-muted);
+    }
+
+    .match-action {
+      margin-top: 1rem;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .match-action .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .match-status {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px dashed var(--primary-light);
+      min-height: 220px;
+    }
+
+    #matchMessage {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #matchIcon {
+      font-size: 3rem;
+      color: var(--primary);
+      opacity: 0.5;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ---------- Premium subscription section ---------- */
+    .premium-section {
+      background: linear-gradient(135deg, #fdf2f8 0%, #ede9fe 100%);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      border: 1px solid rgba(236, 72, 153, 0.2);
+    }
+
+    .premium-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .price-range {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      background: white;
+      display: inline-block;
+      padding: 0.4rem 1.4rem;
+      border-radius: 40px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+    }
+
+    .premium-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .premium-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .premium-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(236, 72, 153, 0.12);
+      border-color: var(--primary-light);
+    }
+
+    .premium-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .premium-card h3 i {
+      color: var(--accent);
+    }
+
+    .premium-price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 0.5rem 0 1rem;
+    }
+
+    .premium-price small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .premium-features {
+      list-style: none;
+      margin: 0.5rem 0 1.5rem;
+      flex: 1;
+    }
+
+    .premium-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .premium-features li i {
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .premium-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.8rem;
+      align-self: flex-start;
+    }
+
+    .btn-premium {
+      background: var(--primary);
+      color: white;
+      padding: 0.7rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: auto;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn-premium:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-premium-outline {
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-premium-outline:hover {
+      background: var(--primary-light);
+    }
+
+    /* ---------- Instagram section ---------- */
+    .instagram-section {
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    .instagram-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(188, 24, 136, 0.25);
+    }
+
+    .instagram-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(188, 24, 136, 0.35);
+    }
+
+    .instagram-link i {
+      font-size: 1.8rem;
+    }
+
+    /* ---------- footer ---------- */
+    footer {
+      margin-top: auto;
+      background: var(--surface);
+      border-top: 1px solid var(--border-light);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    footer i {
+      color: var(--primary);
+      margin: 0 4px;
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.4rem;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+      }
+
+      .nav-container {
+        height: 68px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 2.5rem 0 3rem;
+        gap: 2rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+
+      .btn-large {
+        padding: 0.8rem 1.6rem;
+      }
+
+      .match-demo,
+      .premium-section {
+        padding: 1.5rem 1rem;
+      }
+
+      .section-header {
+        margin-bottom: 2rem;
+      }
+
+      .premium-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 18px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .match-container {
+        flex-direction: column;
+      }
+
+      .instagram-link {
+        font-size: 1rem;
+        padding: 0.9rem 1.8rem;
+      }
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    @keyframes matchPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+    .match-animate {
+      animation: matchPulse 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo" aria-label="JIONI CONNECT home">
+        <i class="fas fa-handshake"></i>
+        <span>JIONI CONNECT</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#match-demo">Try Match</a></li>
+        <li><a href="#premium">Premium</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+      </ul>
+      <a href="#" class="btn btn-primary" style="padding:0.6rem 1.4rem;">
+        <i class="fas fa-user-plus"></i> Join free
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- hero -->
+    <section class="container hero">
+      <div class="hero-content">
+        <span class="hero-badge"><i class="fas fa-map-pin" style="margin-right: 6px;"></i> Local · verified · real</span>
+        <h1>Find your <span style="background: linear-gradient(135deg, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">JIONI</span> connection.</h1>
+        <p>Meet people nearby who share your vibe, your language, and your intentions. Verified profiles, real conversations, zero bots.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary btn-large"><i class="fas fa-heart"></i> Create profile</a>
+          <a href="#" class="btn btn-outline btn-large"><i class="fas fa-shield-alt"></i> How verification works</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="mock-card">
+          <i class="fas fa-camera"></i>
+          <div>
+            <span class="mock-text">Photo verification</span>
+            <small>Real selfies, real people</small>
+          </div>
+        </div>
+        <div class="mock-card">
+          <i class="fas fa-globe-africa"></i>
+          <div>
+            <span class="mock-text">Swahili · Kinyarwanda</span>
+            <small>+ English & French</small>
+          </div>
+        </div>
+        <div class="mock-card">
+          <i class="fas fa-sliders-h"></i>
+          <div>
+            <span class="mock-text">Smart filters</span>
+            <small>Distance, intent, hobbies</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- features -->
+    <section class="container" id="features">
+      <div class="section-header">
+        <h2>Made for real connection</h2>
+        <p>From profile to chat — every detail designed for safety and authenticity.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-id-card"></i></div>
+          <h3>Verified identities</h3>
+          <p>Selfie & photo verification during sign-up. No fake profiles, no bots.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-location-dot"></i></div>
+          <h3>Nearby & filtered</h3>
+          <p>Discover people around you. Filter by distance, shared hobbies, or dating intent.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-comment-dots"></i></div>
+          <h3>Match & chat</h3>
+          <p>Mutual interest unlocks direct messaging. Share media, plan a coffee date.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- interactive match demo -->
+    <section class="container" id="match-demo">
+      <div class="match-demo">
+        <div class="section-header" style="margin-bottom: 1.8rem;">
+          <h2>Try the match mechanic</h2>
+          <p>Tap "Like" on profiles. When both like each other, you get a match!</p>
+        </div>
+        <div class="match-container">
+          <div class="profile-card" id="profileAmina">
+            <div class="avatar"><i class="fas fa-user-circle"></i></div>
+            <h3>Amina, 26</h3>
+            <span class="badge"><i class="fas fa-check-circle" style="font-size:0.7rem;"></i> Verified</span>
+            <div class="interests">
+              <span class="interest-tag">📚 Long-term</span>
+              <span class="interest-tag">☕ Coffee dates</span>
+              <span class="interest-tag">🌍 Travel</span>
+            </div>
+            <div class="match-action">
+              <button class="btn btn-primary like-btn" data-user="Amina"><i class="fas fa-heart"></i> Like</button>
+            </div>
+            <p style="font-size:0.85rem; margin-top:0.6rem;" class="like-status" data-user="Amina">Not liked yet</p>
+          </div>
+
+          <div class="profile-card" id="profileJT">
+            <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+            <h3>JT, 28</h3>
+            <span class="badge"><i class="fas fa-check-circle" style="font-size:0.7rem;"></i> Verified</span>
+            <div class="interests">
+              <span class="interest-tag">🎵 Music</span>
+              <span class="interest-tag">🏞️ Road trips</span>
+              <span class="interest-tag">💬 Networking</span>
+            </div>
+            <div class="match-action">
+              <button class="btn btn-primary like-btn" data-user="JT"><i class="fas fa-heart"></i> Like</button>
+            </div>
+            <p style="font-size:0.85rem; margin-top:0.6rem;" class="like-status" data-user="JT">Not liked yet</p>
+          </div>
+
+          <div class="match-status" id="matchStatusArea">
+            <div id="matchIcon"><i class="fas fa-heart-broken"></i></div>
+            <div id="matchMessage">No match yet. Like both profiles to match!</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 1.8rem;">
+          <p style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-info-circle"></i> Simplified demo — real JIONI CONNECT uses secure mutual like detection.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Premium subscriptions -->
+    <section class="container" id="premium">
+      <div class="premium-section">
+        <div class="premium-header">
+          <h2>Upgrade to <span style="background: linear-gradient(135deg, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">JIONI Premium</span></h2>
+          <div class="price-range"><i class="fas fa-tag"></i> Kshs. 50 – 200 / month</div>
+          <p>Unlock powerful features to find your match faster. Choose the tier that fits you.</p>
+        </div>
+
+        <div class="premium-grid">
+          <!-- Plus Tier -->
+          <div class="premium-card">
+            <span class="premium-badge"><i class="fas fa-star"></i> PLUS</span>
+            <h3><i class="fas fa-bolt"></i> JIONI Plus</h3>
+            <div class="premium-price">Kshs. 50 <small>/ month</small></div>
+            <ul class="premium-features">
+              <li><i class="fas fa-check-circle"></i> <strong>See Who Liked You</strong> — View profiles that swiped right on you</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Unlimited Swipes & Rewinds</strong> — No daily caps, undo accidental swipes</li>
+              <li><i class="fas fa-check-circle"></i> <strong>5 Super Likes</strong> per week to stand out</li>
+              <li><i class="fas fa-check-circle"></i> <strong>1 Profile Boost</strong> per month</li>
+            </ul>
+            <button class="btn-premium btn-premium-outline">Choose Plus</button>
+          </div>
+
+          <!-- VIP Tier -->
+          <div class="premium-card" style="border: 2px solid var(--primary);">
+            <span class="premium-badge" style="background: var(--primary); color: white;"><i class="fas fa-crown"></i> VIP</span>
+            <h3><i class="fas fa-crown" style="color: var(--primary);"></i> JIONI VIP</h3>
+            <div class="premium-price">Kshs. 200 <small>/ month</small></div>
+            <ul class="premium-features">
+              <li><i class="fas fa-check-circle"></i> <strong>Everything in Plus</strong></li>
+              <li><i class="fas fa-check-circle"></i> <strong>Location Passport / Travel Mode</strong> — Change location to match in other cities/countries</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Unlimited Super Likes & Boosts</strong> — Maximum visibility</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Advanced Filters</strong> — Filter by lifestyle, height, exact intent</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Priority support</strong></li>
+            </ul>
+            <button class="btn-premium">Choose VIP</button>
+          </div>
+
+          <!-- Custom / Pay-as-you-go -->
+          <div class="premium-card">
+            <span class="premium-badge"><i class="fas fa-gem"></i> FLEX</span>
+            <h3><i class="fas fa-sliders-h"></i> Custom</h3>
+            <div class="premium-price">Kshs. 100 <small>/ 2 weeks</small></div>
+            <ul class="premium-features">
+              <li><i class="fas fa-check-circle"></i> <strong>See Who Liked You</strong> (limited)</li>
+              <li><i class="fas fa-check-circle"></i> <strong>Unlimited Swipes</strong> for 14 days</li>
+              <li><i class="fas fa-check-circle"></i> <strong>2 Boosts + 10 Super Likes</strong></li>
+              <li><i class="fas fa-check-circle"></i> <strong>Basic filters</strong></li>
+            </ul>
+            <button class="btn-premium btn-premium-outline">Choose Flex</button>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-lock"></i> All plans include secure payment & cancel anytime.</p>
+      </div>
+    </section>
+
+    <!-- Instagram -->
+    <section class="container instagram-section" id="instagram">
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <h2>Follow the vibe on Instagram</h2>
+        <p>See behind-the-scenes, success stories, and community events.</p>
+      </div>
+      <a href="https://instagram.com/jioniconnect" target="_blank" rel="noopener noreferrer" class="instagram-link">
+        <i class="fab fa-instagram"></i>
+        @jioniconnect
+        <i class="fas fa-arrow-up-right-from-square" style="font-size: 1rem;"></i>
+      </a>
+      <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted);">Share your JIONI moments with <strong style="color: var(--primary-dark);">#JIONIConnect</strong></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><i class="fas fa-heart"></i> JIONI CONNECT · real people, real vibes · © 2025</p>
+      <p style="font-size: 0.85rem; margin-top: 0.5rem;">Swahili · Kinyarwanda · English · French</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      "use strict";
+
+      // ---- JIONI CONNECT: interactive match demo ----
+      const liked = {
+        Amina: false,
+        JT: false
+      };
+
+      const likeButtons = document.querySelectorAll('.like-btn');
+      const likeStatuses = {
+        Amina: document.querySelector('.like-status[data-user="Amina"]'),
+        JT: document.querySelector('.like-status[data-user="JT"]')
+      };
+      const matchMessage = document.getElementById('matchMessage');
+      const matchIcon = document.getElementById('matchIcon');
+      const matchStatusArea = document.getElementById('matchStatusArea');
+
+      function updateMatchUI() {
+        if (liked.Amina) {
+          likeStatuses.Amina.textContent = '❤️ Liked!';
+          likeStatuses.Amina.style.color = 'var(--primary-dark)';
+        } else {
+          likeStatuses.Amina.textContent = 'Not liked yet';
+          likeStatuses.Amina.style.color = 'var(--text-muted)';
+        }
+
+        if (liked.JT) {
+          likeStatuses.JT.textContent = '❤️ Liked!';
+          likeStatuses.JT.style.color = 'var(--primary-dark)';
+        } else {
+          likeStatuses.JT.textContent = 'Not liked yet';
+          likeStatuses.JT.style.color = 'var(--text-muted)';
+        }
+
+        if (liked.Amina && liked.JT) {
+          matchMessage.textContent = '✨ It\'s a match! You can now chat with Amina & JT.';
+          matchIcon.innerHTML = '<i class="fas fa-heart" style="color: var(--primary);"></i>';
+          matchStatusArea.style.borderColor = 'var(--primary)';
+          matchStatusArea.style.background = '#fdf2f8';
+          matchStatusArea.classList.add('match-animate');
+          setTimeout(() => matchStatusArea.classList.remove('match-animate'), 400);
+        } else {
+          matchMessage.textContent = 'No match yet. Like both profiles to match!';
+          matchIcon.innerHTML = '<i class="fas fa-heart-broken"></i>';
+          matchStatusArea.style.borderColor = 'var(--primary-light)';
+          matchStatusArea.style.background = 'white';
+        }
+      }
+
+      likeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const user = button.dataset.user;
+          if (user && liked.hasOwnProperty(user)) {
+            liked[user] = !liked[user];
+
+            if (liked[user]) {
+              button.innerHTML = '<i class="fas fa-heart"></i> Liked!';
+              button.classList.remove('btn-outline');
+              button.classList.add('btn-primary');
+            } else {
+              button.innerHTML = '<i class="fas fa-heart"></i> Like';
+              button.classList.remove('btn-primary');
+              button.classList.add('btn-outline');
+            }
+
+            updateMatchUI();
+          }
+        });
+      });
+
+      // Initialize UI
+      function initializeUI() {
+        likeButtons.forEach(btn => {
+          const user = btn.dataset.user;
+          if (user && liked.hasOwnProperty(user) && !liked[user]) {
+            btn.innerHTML = '<i class="fas fa-heart"></i> Like';
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-outline');
+          }
+        });
+        updateMatchUI();
+      }
+
+      initializeUI();
+
+      // ---- Optional: Smooth scroll for nav links ----
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href !== '#') {
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      });
+
+      console.log('JIONI CONNECT · Premium tiers & Instagram ready');
+    })();
+  </script>
+</body>
+</html>
